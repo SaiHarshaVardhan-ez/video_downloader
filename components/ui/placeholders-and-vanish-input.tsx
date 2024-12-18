@@ -198,12 +198,12 @@ export function PlaceholdersAndVanishInput({
         )}
         ref={canvasRef}
       />
-      <input
+     <input
         onChange={(e) => {
           if (!animating) {
             setValue(e.target.value);
             onChange && onChange(e);
-          } 
+          }
         }}
         onKeyDown={handleKeyDown}
         ref={inputRef}
@@ -214,6 +214,7 @@ export function PlaceholdersAndVanishInput({
           animating && "text-transparent dark:text-transparent"
         )}
       />
+
 
       
 
