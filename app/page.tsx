@@ -37,9 +37,7 @@ export default async function Home({ searchParams }) {
   try {
     const response = await fetch('https://snap-video3.p.rapidapi.com/download', options);
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch video details');
-    }
+  
 
     post = await response.json();
   } catch (error) {
