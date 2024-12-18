@@ -43,7 +43,7 @@ export function PlaceholdersAndVanishInput({
   }, [placeholders]);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const newDataRef = useRef<Number[]>([]);
+  const newDataRef = useRef<number[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState("");
   const [animating, setAnimating] = useState(false);
@@ -67,7 +67,7 @@ export function PlaceholdersAndVanishInput({
 
     const imageData = ctx.getImageData(0, 0, 800, 800);
     const pixelData = imageData.data;
-    const newData: Number[] = [];
+    const newData: number[] = [];
 
     for (let t = 0; t < 800; t++) {
       const i = 4 * t * 800;
@@ -203,7 +203,7 @@ export function PlaceholdersAndVanishInput({
           if (!animating) {
             setValue(e.target.value);
             onChange && onChange(e);
-          }
+          } 
         }}
         onKeyDown={handleKeyDown}
         ref={inputRef}

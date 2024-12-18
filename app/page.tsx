@@ -36,17 +36,21 @@ export default async function Home({ searchParams }) {
 
   try {
     const response = await fetch('https://snap-video3.p.rapidapi.com/download', options);
-
   
-
+    if (!response.ok) {
+      throw new Error('Failed to fetch video details');
+    }
+  
     post = await response.json();
   } catch (error) {
+    console.error('Error fetching video details:', error); // Log the error
     return (
       <div className="flex flex-col justify-center items-center h-screen">
-        <p className="text-red-500">Error fetching video details.</p>
+        <p className="text-red-500">Error fetching video details: {error instanceof Error ? error.message : 'Unknown error'}</p>
       </div>
     );
   }
+  
 
   return (
     <HeroHighlight className="flex flex-col justify-center items-center h-screen overflow-hidden  text-white" >
