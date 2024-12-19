@@ -4,15 +4,21 @@ import { HeroHighlight } from '@/components/ui/hero-highlight';
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 import Link from 'next/link';
 
-export default async function Home({ searchParams }) {
-  const { url } = await searchParams; 
+interface HomeProps {
+  searchParams: {
+    url?: string;
+  };
+}
+
+export default async function Home({ searchParams }: HomeProps) {
+  const { url } = searchParams; // No need for `await` here as `searchParams` is not a promise.
 
   if (!url) {
     return (
       <div className="flex flex-col h-screen w-screen">
         <Navbar /> {/* Navbar stays fixed at the top */}
-        <div className="flex-1 flex justify-center items-center overflow-hidden"> 
-          <div className="flex flex-col justify-center items-center  w-full h-full">
+        <div className="flex-1 flex justify-center items-center overflow-hidden">
+          <div className="flex flex-col justify-center items-center w-full h-full">
             <HeroHighlightDemo /> {/* Render the Client Component here */}
           </div>
         </div>
