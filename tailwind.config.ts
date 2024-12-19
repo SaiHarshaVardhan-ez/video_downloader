@@ -14,6 +14,11 @@ export default {
   ],
   theme: {
   	extend: {
+		fontFamily: {
+			bebas: ['Bebas Neue', 'sans-serif'],
+			kanit: ['Kanit', 'sans-serif'],
+			poppins: ['Poppins', 'sans-serif'],
+		  },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
