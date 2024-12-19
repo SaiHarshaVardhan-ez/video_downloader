@@ -8,10 +8,20 @@ export function PlaceholdersAndVanishInput({
   placeholders,
   onChange,
   onSubmit,
+  value1,
+  required,
+  className,
+  type,
+  name
 }: {
   placeholders: string[];
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+  value1:string,
+  required:boolean,
+  className:string,
+  type:string,
+  name:string
 }) {
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
 
@@ -43,7 +53,7 @@ export function PlaceholdersAndVanishInput({
   }, [placeholders]);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const newDataRef = useRef<number[]>([]);
+  const newDataRef = useRef<any[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState("");
   const [animating, setAnimating] = useState(false);
@@ -67,7 +77,7 @@ export function PlaceholdersAndVanishInput({
 
     const imageData = ctx.getImageData(0, 0, 800, 800);
     const pixelData = imageData.data;
-    const newData: number[] = [];
+    const newData: any[] = [];
 
     for (let t = 0; t < 800; t++) {
       const i = 4 * t * 800;
@@ -199,6 +209,8 @@ export function PlaceholdersAndVanishInput({
         ref={canvasRef}
       />
     <input
+        title="title"
+        placeholder=""
         onChange={(e) => {
           if (!animating) {
             setValue(e.target.value);

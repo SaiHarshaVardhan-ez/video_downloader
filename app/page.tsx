@@ -4,7 +4,9 @@ import { HeroHighlight } from '@/components/ui/hero-highlight';
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 import Link from 'next/link';
 
-export default async function Home({ searchParams }) {
+export default async function Home({ searchParams }:{
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }> 
+}) {
   const { url } = await searchParams; 
 
   if (!url) {
@@ -23,12 +25,12 @@ export default async function Home({ searchParams }) {
   const options = {
     method: 'POST',
     headers: {
-      'x-rapidapi-key': process.env.NEXT_PUBLIC_API_KEY,
-      'x-rapidapi-host': process.env.NEXT_PUBLIC_API_HOST,
+      'x-rapidapi-key': process.env.NEXT_PUBLIC_API_KEY ?? "",
+      'x-rapidapi-host': process.env.NEXT_PUBLIC_API_HOST ?? "",
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams({
-      url: url,
+      url: Array.isArray(url) ? url[0]:url,
     }),
   };
 

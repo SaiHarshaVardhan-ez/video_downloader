@@ -70,16 +70,18 @@ export function HeroHighlightDemo() {
       </div>
 
       {/* Input and Button */}
+      
       <div className="flex flex-col sm:flex-row gap-10 py-10 items-center justify-center ">
+        {
         <PlaceholdersAndVanishInput
           type="text"
           name="url"
-          placeholders={placeholders}
           className="p-2 border rounded "
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
+          value1={url}
           required
-        />
+          placeholders={placeholders}
+          onChange={(e) => setUrl(e.target.value)}
+        />}
         <HoverBorderGradient
         containerClassName="rounded-full"
         onClick={handleSubmit}
