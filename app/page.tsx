@@ -4,21 +4,15 @@ import { HeroHighlight } from '@/components/ui/hero-highlight';
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 import Link from 'next/link';
 
-interface HomeProps {
-  searchParams: {
-    url?: string;
-  };
-}
-
-export default async function Home({ searchParams }: HomeProps) {
-  const { url } = searchParams; // No need for `await` here as `searchParams` is not a promise.
+export default async function Home({ searchParams }) {
+  const { url } = await searchParams; 
 
   if (!url) {
     return (
       <div className="flex flex-col h-screen w-screen">
         <Navbar /> {/* Navbar stays fixed at the top */}
-        <div className="flex-1 flex justify-center items-center overflow-hidden">
-          <div className="flex flex-col justify-center items-center w-full h-full">
+        <div className="flex-1 flex justify-center items-center overflow-hidden"> 
+          <div className="flex flex-col justify-center items-center  w-full h-full">
             <HeroHighlightDemo /> {/* Render the Client Component here */}
           </div>
         </div>
@@ -42,14 +36,16 @@ export default async function Home({ searchParams }: HomeProps) {
 
   try {
     const response = await fetch('https://snap-video3.p.rapidapi.com/download', options);
-  
+
+    
+
     if (!response.ok) {
       throw new Error('Failed to fetch video details');
     }
   
     post = await response.json();
   } catch (error) {
-    console.error('Error fetching video details:', error); // Log the error
+    console.error('Error fetching video details:', error); 
     return (
       <div className="flex flex-col justify-center items-center h-screen">
         <p className="text-red-500">Error fetching video details: {error instanceof Error ? error.message : 'Unknown error'}</p>
@@ -94,29 +90,21 @@ export default async function Home({ searchParams }: HomeProps) {
                     </div>
                 </div>
                 {post.medias && (
-                  <div className="w-96 flex items-center justify-center gap-4  mt-10">
-                    <Link href={Object.values(post.medias)[0]?.url} className=''>
-                    <HoverBorderGradient
-                      containerClassName="rounded-full"
-                      as="button"
-                      className="bg-black shadow-sky-900 shadow-sm text-white flex items-center space-x-2 "
-                    >
-                      <DownloadLogo />
-                      <span className="font-bold">Download Now</span>
-                    </HoverBorderGradient>
-                    </Link>
-                    <Link href='/' className=''>
-                    <HoverBorderGradient
-                      containerClassName="rounded-full"
-                      as="button"
-                      className="bg-black shadow-sky-900 shadow-sm text-white flex items-center  space-x-2 "
-                    >
-                      <SearchLogo />
-                      <span className="font-bold">Find Another</span>
-                    </HoverBorderGradient>
-                    </Link>
-                </div>
-            )}
+                  <div className="w-full flex flex-wrap items-center justify-center gap-4 mt-10">
+                    {Object.values(post.medias).map((media: any, index: number) => (
+                      <Link href={media?.url} key={index} className="">
+                        <HoverBorderGradient
+                          containerClassName="rounded-full"
+                          as="button"
+                          className="bg-black shadow-sky-900 shadow-sm text-white flex items-center space-x-2 px-4 py-2"
+                        >
+                          <DownloadLogo />
+                          <span className="font-bold">{media?.quality || "Unknown Quality"}</span>
+                        </HoverBorderGradient>
+                      </Link>
+                    ))}
+                  </div>
+                )}
             </div>
           </div>
         ) : (
@@ -142,17 +130,3 @@ const DownloadLogo = () => {
   );
 };
 
-const SearchLogo = () => {
-  return (
-      <svg
-      width="48"
-      height="46" 
-      viewBox="0 0 24 23"
-      fill="white"
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6 text-white" 
-    >
-      <path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"></path>
-    </svg>
-  );
-};
