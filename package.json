@@ -5,7 +5,7 @@
   "proxy": "https://snap-video3.p.rapidapi.com",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build && echo 'Build complddddeted'",
+    "build": "next build && echo 'Build cddddeted'",
     "start": "next start",
     "lint": "next lint"
   },
